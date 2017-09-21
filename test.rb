@@ -1,7 +1,5 @@
 class Test
-
   def initialize
-
     @score = 0
     @num_qeustion = 0
 
@@ -24,11 +22,9 @@ class Test
     else
       puts "Not found"
     end
-
   end
 
   def ask_next_question
-
     puts ""
     puts @q_lines[@num_qeustion]
 
@@ -46,23 +42,17 @@ class Test
     end
 
     @num_qeustion += 1
-
   end
 
   def finished?
-
     @num_qeustion == @q_lines.size
-
   end
 
   def score(point)
-
     @score += point
-
   end
 
   def result
-
     if @score >= 30
       return @a_lines[0]
     elsif @score >= 25
@@ -78,7 +68,5 @@ class Test
     else
       return @a_linese[6]
     end
-
   end
-
 end
