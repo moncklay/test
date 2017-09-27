@@ -1,6 +1,11 @@
-current_path = "./" + File.dirname(__FILE__)
+require_relative 'test.rb'
+require_relative 'file_reader.rb'
 
-require current_path + "/test.rb"
+file_reader = FileReader.new
+questions_file_name = "#{File.dirname(__FILE__)}/data/questons.txt"
+questions = file_reader.read_questions_file(questions_file_name)
+results_file_name = "#{File.dirname(__FILE__)}/data/results.txt"
+results = file_reader.read_answers_file(results_file_name)
 
 name = ARGV[0]
 
@@ -10,6 +15,7 @@ puts "Привет, #{name}"
 
 test = Test.new
 
-test.ask_next_question until test.finished?
+test.ask_next_question(questions) until test.finished?(questions)
 
-puts test.result.to_s
+puts
+puts test.result(results)

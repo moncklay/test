@@ -1,72 +1,59 @@
 class Test
   def initialize
     @score = 0
-    @num_qeustion = 0
-
-    current_path = File.dirname(__FILE__)
-    question_file = current_path + "/data/questions.txt"
-    answers_file = current_path + "/data/answers.txt"
-
-    if File.exist?(question_file)
-      q = File.new(question_file, 'r:UTF-8')
-      @q_lines = q.readlines
-      q.close
-    else
-      puts "Not found"
-    end
-
-    if File.exist?(answers_file)
-      a = File.new(answers_file, 'r:UTF-8')
-      @a_lines = a.readlines
-      a.close
-    else
-      puts "Not found"
-    end
+    @question_number = 0
   end
 
-  def ask_next_question
-    puts ""
-    puts @q_lines[@num_qeustion]
+  def ask_next_question(questions)
+    puts
+    puts questions[@question_number]
 
     user_input = nil
 
-    while (user_input != "да") && (user_input != "нет") && (user_input != "иногда") do
+    until (user_input == "да") || (user_input == "нет") || (user_input == "иногда") do
       puts "Нужен ответ: «да», «нет», «иногда»"
       user_input = STDIN.gets.chomp.downcase
     end
 
-    if user_input == "да"
-      score(2)
-    elsif user_input == "иногда"
-      score(1)
-    end
-
-    @num_qeustion += 1
+    answers_score(user_input)
+    @question_number += 1
   end
 
-  def finished?
-    @num_qeustion == @q_lines.size
+  def answers_score(user_input)
+    case user_input
+      when "да"
+        score(2)
+      when "иногда"
+        score(1)
+      else
+        score(0)
+    end
   end
 
   def score(point)
     @score += point
   end
 
-  def result
-    if @score >= 30
-      return @a_lines[0]
-    elsif @score >= 25
-      return @a_lines[1]
-    elsif @score >= 19
-      return @a_lines[2]
-    elsif @score >= 14
-      return @a_lines[3]
-    elsif @score >= 9
-      return @a_lines[4]
-    elsif @score >= 4
-      return @a_lines[5]
-    else
-      return @a_linese[6]
+  def finished?(questions)
+    @question_number == questions.size
+  end
+
+  def result(results)
+    case @score
+      when 0..3
+        results[6]
+      when 4..8
+        results[5]
+      when 9..13
+        results[4]
+      when 14..18
+        results[3]
+      when 19..24
+        results[2]
+      when 25..29
+        results[1]
+      else
+        results[0]
     end
   end
 end
