@@ -1,8 +1,8 @@
-require_relative 'test.rb'
-require_relative 'file_reader.rb'
+require_relative 'lib/test.rb'
+require_relative 'lib/file_reader.rb'
 
 file_reader = FileReader.new
-questions_file_name = "#{File.dirname(__FILE__)}/data/questons.txt"
+questions_file_name = "#{File.dirname(__FILE__)}/data/questions.txt"
 questions = file_reader.read_questions_file(questions_file_name)
 results_file_name = "#{File.dirname(__FILE__)}/data/results.txt"
 results = file_reader.read_answers_file(results_file_name)
