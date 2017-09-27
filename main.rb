@@ -1,11 +1,12 @@
 require_relative 'lib/test.rb'
 require_relative 'lib/file_reader.rb'
 
-file_reader = FileReader.new
 questions_file_name = "#{File.dirname(__FILE__)}/data/questions.txt"
-questions = file_reader.read_questions_file(questions_file_name)
 results_file_name = "#{File.dirname(__FILE__)}/data/results.txt"
-results = file_reader.read_answers_file(results_file_name)
+questions = FileReader.new
+questions = questions.read_file(questions_file_name)
+results = FileReader.new
+results = results.read_file(results_file_name)
 
 name = ARGV[0]
 
